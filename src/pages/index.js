@@ -1,17 +1,19 @@
-import React from 'react'
-import get from 'lodash/get'
-import Helmet from 'react-helmet'
-import Hero from '../components/hero'
-import ArticlePreview from '../components/article-preview'
+import React from "react";
+import get from "lodash/get";
+import Helmet from "react-helmet";
+import Hero from "../components/hero";
+import Contact from "../components/contact";
+
+import ArticlePreview from "../components/article-preview";
 
 class RootIndex extends React.Component {
   render() {
-    const siteTitle = get(this, 'props.data.site.siteMetadata.title')
-    const posts = get(this, 'props.data.allContentfulBlogPost.edges')
-    const [author] = get(this, 'props.data.allContentfulPerson.edges')
+    const siteTitle = get(this, "props.data.site.siteMetadata.title");
+    const posts = get(this, "props.data.allContentfulBlogPost.edges");
+    const [author] = get(this, "props.data.allContentfulPerson.edges");
 
     return (
-      <div style={{ background: '#fff' }}>
+      <div style={{ background: "#fff" }}>
         <Helmet title={siteTitle} />
         <Hero data={author.node} />
         <div className="wrapper">
@@ -22,16 +24,17 @@ class RootIndex extends React.Component {
                 <li key={node.slug}>
                   <ArticlePreview article={node} />
                 </li>
-              )
+              );
             })}
           </ul>
+          <Contact />
         </div>
       </div>
-    )
+    );
   }
 }
 
-export default RootIndex
+export default RootIndex;
 
 export const pageQuery = graphql`
   query HomeQuery {
@@ -44,7 +47,7 @@ export const pageQuery = graphql`
           tags
           heroImage {
             sizes(maxWidth: 350, maxHeight: 196, resizingBehavior: SCALE) {
-             ...GatsbyContentfulSizes_withWebp
+              ...GatsbyContentfulSizes_withWebp
             }
           }
           description {
@@ -67,6 +70,7 @@ export const pageQuery = graphql`
             sizes(
               maxWidth: 1180
               maxHeight: 480
+
               resizingBehavior: PAD
               background: "rgb:000000"
             ) {
@@ -77,4 +81,4 @@ export const pageQuery = graphql`
       }
     }
   }
-`
+`;
